@@ -14,8 +14,6 @@ import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    //private List<Category> categories = new ArrayList<>();
-    //private Long nextId = 1L;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -34,14 +32,11 @@ public class CategoryServiceImpl implements CategoryService {
         Category savedCategory = categoryRepository.findByCategoryName(category.getCategoryName());
         if (savedCategory != null)
             throw new APIException("Category with the name " + category.getCategoryName() + " already exists !!!");
-        // Removed manual ID setting - let database auto-generate it
-        //category.setCategoryId(nextId++);
         categoryRepository.save(category);
     }
 
     @Override
     public String deleteCategory(Long categoryId) {
-        // Updated to use findById instead of filtering manually
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
         //.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource not found"));
@@ -51,7 +46,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category updateCategory(Category category, Long categoryId) {
-        // Updated to use findById instead of filtering manually
         Category existingCategory = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
         //.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));

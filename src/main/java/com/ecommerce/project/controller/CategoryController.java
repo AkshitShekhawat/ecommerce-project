@@ -53,6 +53,5 @@ public class CategoryController {
     public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO, @PathVariable Long categoryId){
             CategoryDTO savedCategoryDTO = categoryService.updateCategory(categoryDTO, categoryId);
             return new ResponseEntity<>(savedCategoryDTO, HttpStatus.OK);
-            //Test Commit controller in intellij
     }
 }

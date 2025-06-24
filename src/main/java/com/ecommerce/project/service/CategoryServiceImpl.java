@@ -82,9 +82,6 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
         //.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
 
-
-        //This is first commit from intellij
-
         Category category = modelMapper.map(categoryDTO, Category.class);
         existingCategory.setCategoryName(category.getCategoryName());
         Category savedCategory = categoryRepository.save(existingCategory);

@@ -18,17 +18,17 @@ public class Product {
     private Long productId;
 
     @NotBlank
-    @Size(min = 3, message = "Product name must contain atleast 3 character")
+    @Size(min = 3, message = "Product name must contain atleast 3 characters")
     private String productName;
     private String image;
 
     @NotBlank
-    @Size(min = 6, message = "Product Description must contain atleast 6 character")
+    @Size(min = 6, message = "Product description must contain atleast 6 characters")
     private String description;
     private Integer quantity;
-    private Double price; //100
-    private Double discount; //25
-    private Double specialPrice; //75
+    private double price; //100
+    private double discount; //25
+    private double specialPrice; //75
 
     // How to get specialPrice 100 - (25/100) * 100
 

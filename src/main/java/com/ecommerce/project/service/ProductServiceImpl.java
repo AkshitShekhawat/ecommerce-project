@@ -108,7 +108,7 @@ public class ProductServiceImpl implements ProductService{
         List<Product> products =  pageProducts.getContent();
 
         if(products.isEmpty()){
-            throw new APIException(category.getCategoryName() + "category does not have any products");
+            throw new APIException(category.getCategoryName() + " category does not have any products");
         }
 
         List<ProductDTO> productDTOS = products.stream()
@@ -203,6 +203,5 @@ public class ProductServiceImpl implements ProductService{
         // return DTO after mapping product to DTO
         return modelMapper.map(updatedProduct, ProductDTO.class);
     }
-
 
 }

@@ -35,4 +35,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id") //so users would be persisting in the products tablewith the name seller_id
+    private User user; //we are mapping products to user
 }

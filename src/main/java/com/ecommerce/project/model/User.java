@@ -57,6 +57,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @Getter
+    @Setter
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_address",
                 joinColumns = @JoinColumn(name = "user_id"),
@@ -64,6 +66,7 @@ public class User {
     private List<Address> addresses = new ArrayList<>();
 
     //One user have multiple product
+    @ToString.Exclude
     @OneToMany(mappedBy = "user",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             orphanRemoval = true)// Means if there is a user is deleted then all the products become orphan,

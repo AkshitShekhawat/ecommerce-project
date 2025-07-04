@@ -1,20 +1,32 @@
-package com.ecommerce.project.security.jwt;
+package com.ecommerce.project.security.response;
 
 import java.util.List;
 
-public class LoginResponse {
-    private String jwtToken;
+public class UserInfoResponse {
 
+    private Long id;
+    private String jwtToken;
     private String username;
     private List<String> roles;
 
     //Below constructors
-    public LoginResponse(String username, List<String> roles, String jwtToken) {
+    public UserInfoResponse(Long id, String username, List<String> roles, String jwtToken) {
+        this.id = id;
         this.username = username;
         this.roles = roles;
         this.jwtToken = jwtToken;
     }
     //Below getter and setters
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getJwtToken() {
         return jwtToken;
     }
@@ -39,10 +51,4 @@ public class LoginResponse {
         this.roles = roles;
     }
 }
-
-
-//so what we have done is
-        /*
-        We sending a request with LoginRequest in the RequestBody
-        */
 

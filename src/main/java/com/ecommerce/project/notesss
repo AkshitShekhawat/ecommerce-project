@@ -1,0 +1,21 @@
+//so what we have done is
+        /*
+        We sending a request with LoginRequest in the RequestBody, we authenticate the user, and we
+        get the authentication object now if the authentication is successful we have the authentication
+        object that is fully populated, if this is not successful then we have exception thrown and are
+        directly inside the catch block, and after we are returning.
+
+        If there is no exception then what we do so if the login is successful and there was no exception
+        then we need to store the authentication in the security context for that we are going to use
+        security context...
+        */
+
+
+
+         //One user have multiple product
+            @ToString.Exclude
+            @OneToMany(mappedBy = "user",
+                    cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+                    orphanRemoval = true)// Means if there is a user is deleted then all the products become orphan,
+                   // they don't have parent essentially ,they are not map to anything, so in that particular case the product will also be removed
+            private Set<Product> products;

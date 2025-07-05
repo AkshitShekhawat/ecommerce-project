@@ -64,6 +64,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "address_id"))
     private List<Address> addresses = new ArrayList<>();
 
+    @ToString.Exclude
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private Cart cart;
+
     //One user have multiple product
     @ToString.Exclude
     @OneToMany(mappedBy = "user",

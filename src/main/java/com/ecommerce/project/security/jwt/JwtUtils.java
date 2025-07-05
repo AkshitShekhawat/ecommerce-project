@@ -66,6 +66,15 @@ public class JwtUtils {
         return cookie;
     }
 
+    //When this is called or When with this kind of cookie send to the frontend. the cookie that existed previously is overridden
+    //by this below and also this one doesn't have token so, the user is signout
+    public ResponseCookie getCleanCookie() {
+        ResponseCookie cookie = ResponseCookie.from(jwtCookie, null)
+                .path("/api")
+                .build();
+        return cookie;
+    }
+
     //Generating Token From Username
     public String generateTokenFromUsername(String username) {
         return Jwts.builder()

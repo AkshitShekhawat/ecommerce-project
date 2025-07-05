@@ -24,3 +24,6 @@
             UserDetailServiceImpl
 
             jwtCookieName
+
+            //OneToOne bez one user have only one cart
+            //OneToMany ->>> So one cart has many products

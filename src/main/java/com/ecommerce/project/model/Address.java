@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long addressId;
@@ -41,21 +40,21 @@ public class Address {
     @NotBlank
     @Size(min = 2, message = "Country name must be atleast 2 characters")
     private String country;
+
     @NotBlank
-    @Size(min = 6, message = "PinCode name must be atleast 6 characters")
-    private String pinCode;
+    @Size(min = 5, message = "Pincode must be atleast 5 characters")
+    private String pincode;
 
-    //Now we need to link this to users
-    @ToString.Exclude
-    @ManyToMany(mappedBy = "addresses")
-    private List<User> users = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Address(String pinCode, String street, String buildingName, String city, String state, String country) {
-        this.pinCode = pinCode;
+    public Address(String street, String buildingName, String city, String state, String country, String pincode) {
         this.street = street;
         this.buildingName = buildingName;
         this.city = city;
         this.state = state;
         this.country = country;
+        this.pincode = pincode;
     }
 }

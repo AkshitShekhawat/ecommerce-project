@@ -183,6 +183,7 @@ public class ProductServiceImpl implements ProductService{
         //save to database
         Product savedProduct = productRepository.save(existingProduct);
 
+        //Also updating in the cart
         List<Cart> carts = cartRepository.findCartsByProductId(productId);
 
         List<CartDTO> cartDTOs = carts.stream().map(cart -> {
@@ -206,7 +207,7 @@ public class ProductServiceImpl implements ProductService{
     public ProductDTO deleteProduct(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
-
+        //Delete from cart as well
         List<Cart> carts = cartRepository.findCartsByProductId(productId);
         carts.forEach(cart -> cartService.deleteProductFromCart(cart.getCartId(), productId));
 

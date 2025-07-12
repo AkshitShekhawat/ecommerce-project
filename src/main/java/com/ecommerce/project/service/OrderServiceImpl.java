@@ -45,6 +45,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderDTO placeOrder(String emailId, Long addressId, String paymentMethod, String pgName, String pgPaymentId, String pgStatus, String pgResponseMessage) {
+        // Getting User Cart
         Cart cart = cartRepository.findCartByEmail(emailId);
         if (cart == null) {
             throw new ResourceNotFoundException("Cart", "email", emailId);
@@ -53,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
         Address address = addressRepository.findById(addressId)
                 .orElseThrow(() -> new ResourceNotFoundException("Address", "addressId", addressId));
 
+        // Create a new order with payment info
         Order order = new Order();
         order.setEmail(emailId);
         order.setOrderDate(LocalDate.now());
@@ -67,11 +69,12 @@ public class OrderServiceImpl implements OrderService {
 
         Order savedOrder = orderRepository.save(order);
 
+        // Get items from the cart into the order items
         List<CartItem> cartItems = cart.getCartItems();
         if (cartItems.isEmpty()) {
             throw new APIException("Cart is empty");
         }
-
+        //We need to get the items from the cart, and we need to transform it to order item
         List<OrderItem> orderItems = new ArrayList<>();
         for (CartItem cartItem : cartItems) {
             OrderItem orderItem = new OrderItem();
@@ -85,6 +88,7 @@ public class OrderServiceImpl implements OrderService {
 
         orderItems = orderItemRepository.saveAll(orderItems);
 
+        // Update product stock
         cart.getCartItems().forEach(item -> {
             int quantity = item.getQuantity();
             Product product = item.getProduct();
@@ -99,6 +103,7 @@ public class OrderServiceImpl implements OrderService {
             cartService.deleteProductFromCart(cart.getCartId(), item.getProduct().getProductId());
         });
 
+        // Send back the order summary
         OrderDTO orderDTO = modelMapper.map(savedOrder, OrderDTO.class);
         orderItems.forEach(item -> orderDTO.getOrderItems().add(modelMapper.map(item, OrderItemDTO.class)));
 

@@ -103,20 +103,26 @@ public class CartServiceImpl implements CartService{
         List<Cart> carts = cartRepository.findAll();
 
         if (carts.size() == 0) {
-            throw new APIException("No cart exist");
+            throw new APIException("No cart exists");
         }
 
-        List<CartDTO> cartDTOS = carts.stream()
-                .map(cart -> {
-                    CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-                    List<ProductDTO> products = cart.getCartItems().stream()
-                            .map(p -> modelMapper.map(p.getProduct(), ProductDTO.class))
-                            .collect(Collectors.toList());
-                    cartDTO.setProducts(products);
-                    return cartDTO;
-                }).collect(Collectors.toList());
+        List<CartDTO> cartDTOs = carts.stream().map(cart -> {
+            CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
 
-        return cartDTOS;
+            List<ProductDTO> products = cart.getCartItems().stream().map(cartItem -> {
+                ProductDTO productDTO = modelMapper.map(cartItem.getProduct(), ProductDTO.class);
+                productDTO.setQuantity(cartItem.getQuantity()); // Set the quantity from CartItem
+                return productDTO;
+            }).collect(Collectors.toList());
+
+
+            cartDTO.setProducts(products);
+
+            return cartDTO;
+
+        }).collect(Collectors.toList());
+
+        return cartDTOs;
     }
 
     @Override
@@ -126,10 +132,6 @@ public class CartServiceImpl implements CartService{
             throw new ResourceNotFoundException("Cart", "cartId", cartId);
         }
         CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
-//        List<CartItem> cartItems = cart.getCartItems();
-//        for(CartItem ct: cartItems){
-//            ct.setQuantity(ct.getProduct().getQuantity());
-//        }
         cart.getCartItems().forEach(c -> c.getProduct().setQuantity(c.getQuantity()));//It loops through all cart items. For each item, it updates the product’s quantity to match the cart quantity.
         List<ProductDTO> products = cart.getCartItems().stream()
                 .map(p ->modelMapper.map(p.getProduct(), ProductDTO.class))
@@ -269,28 +271,3 @@ public class CartServiceImpl implements CartService{
         return newCart;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

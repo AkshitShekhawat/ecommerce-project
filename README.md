@@ -44,39 +44,37 @@ Temporarily deployed on AWS for learning purpose, But in future i can deploy on 
 
 📸 Screenshots
 [Comming Soon]
-
-==Getting Started
+Getting Started
  -Prerequisites
  -Node.js
  -Java 21
  -MySQL
  -Maven
-
-===Backend Setup
+Backend Setup
 cd sb-ecom-backend
-# configure application.properties
+configure application.properties
 mvn clean install
 mvn spring-boot:run
 
-===Frontend Setup
-  cd ecom-frontend
-  npm install
-  npm start
-  Stripe Setup
+Frontend Setup
+ cd ecom-frontend
+ npm install
+ npm start
+ Stripe Setup
  Create a Stripe account
 
 Replace test keys in the frontend/backend with your own
 
 📂 Folder Structure
 
-ecommerce-app/
-│
-├── backend/
-│   └── src/main/java/... (Spring Boot code)
-│
-├── frontend/
-│   └── src/ (React components)
-🤝 Contributing
+ ecommerce-app/
+ │
+ ├── backend/
+ │   └── src/main/java/... (Spring Boot code)
+ │
+ ├── frontend/
+ │   └── src/ (React components)
+ 🤝 Contributing
 Contributions are welcome! Feel free to fork the project and submit a pull request.
 
 📃 License

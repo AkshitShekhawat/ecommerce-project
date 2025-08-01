@@ -5,6 +5,11 @@ import { useEffect } from "react";
 import { fetchProducts } from "../store/actions";
 import Filter from "./Filter";
 
+// http://localhost:xxxx?keyword=test&sortby=desc
+
+// 1. Make sure url is updatedcwith filter values
+// 2. Use this filter values for getting getting data from backend
+
 const Products = () => {
   const { isLoading, errorMessage} =  useSelector(
     (state) => state.errors 

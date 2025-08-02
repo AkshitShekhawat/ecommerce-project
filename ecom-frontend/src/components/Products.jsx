@@ -7,6 +7,8 @@ import Filter from "./Filter";
 import useProductFilter from "./useProductFilter";
 import { RotatingLines } from "react-loader-spinner";
 import Loader from "./Loader";
+import { Pagination } from "@mui/material";
+import Paginations from "./Paginations";
 
 // http://localhost:xxxx?keyword=test&sortby=desc
 
@@ -17,7 +19,7 @@ const Products = () => {
   const { isLoading, errorMessage} =  useSelector(
     (state) => state.errors 
   );
-  const {products, categories} = useSelector(
+  const {products, categories, pagination} = useSelector(
     (state) => state.products
   )
   const dispatch = useDispatch();
@@ -44,14 +46,16 @@ const Products = () => {
                 <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm-grid-cols-2 gap-y-6 gap-x-6">
                   {products && 
                    products.map((item, i) => <ProductCard key={i} {...item}/>
-
-                   )
-                  }
+                   )}
+                </div>
+                <div className="flex justify-center pt-10">
+                <Paginations 
+                    numberOfPage = {pagination?.totalPages}
+                    totalProducts = {pagination?.totalElements}
+                    />
                 </div>
               </div>
-          )
-          
-          }
+          )}
         </div>
     )
 };

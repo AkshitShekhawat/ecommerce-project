@@ -45,7 +45,8 @@ const About = () => {
 
                 <div className="w-full md:w-lg mb-6 md:mb-0">
                     <img
-                        src="https://embarkx.com/sample/placeholder.png"
+                        // src="https://embarkx.com/sample/placeholder.png"
+                        src="/public/aboutimg2.png"
                         alt="About Us"
                         className="w-full h-auto rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105"></img>
                 </div>

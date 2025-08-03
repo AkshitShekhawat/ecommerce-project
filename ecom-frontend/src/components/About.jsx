@@ -29,7 +29,7 @@ const products = [
 
 const About = () => {
     return (
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto px-4 py-8">
             <h1 className="text-slate-800 text-4xl font-bold text-center mb-12">
                 About Us
             </h1>
@@ -43,7 +43,7 @@ const About = () => {
                     </p>
                 </div>
 
-                <div className="w-full md:w-1/2 mb-6 md:mb-0">
+                <div className="w-full md:w-lg mb-6 md:mb-0">
                     <img
                         src="https://embarkx.com/sample/placeholder.png"
                         alt="About Us"

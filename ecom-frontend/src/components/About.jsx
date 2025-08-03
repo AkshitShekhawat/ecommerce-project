@@ -2,7 +2,7 @@ import ProductCard from "./shared/ProductCard";
 
 const products = [
     {
-        image: "https://embarkx.com/sample/placeholder.png",
+        image: "/public/iphone.png",
         productName: "iPhone 16 Pro Max",
         description:
           "The iPhone 13 Pro Max offers exceptional performance with its A15 Bionic chip, stunning Super Retina XDR display, and advanced camera features for breathtaking photos.",
@@ -10,7 +10,7 @@ const products = [
         price: 780,
       },
       {
-        image: "https://embarkx.com/sample/placeholder.png",
+        image: "/public/SamsungS25Ultra.png",
         productName: "Samsung Galaxy S25 Ultra",
         description:
           "Experience the brilliance of the Samsung Galaxy S21 with its vibrant AMOLED display, powerful camera, and sleek design that fits perfectly in your hand.",
@@ -18,7 +18,7 @@ const products = [
         price: 799,
       },
       {
-        image: "https://embarkx.com/sample/placeholder.png",
+        image: "/public/googlepixel.png",
         productName: "Google Pixel 9",
         description:
           "The Google Pixel 6 boasts cutting-edge AI features, exceptional photo quality, and a stunning display, making it a perfect choice for Android enthusiasts.",

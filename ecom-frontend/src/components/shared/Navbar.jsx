@@ -53,10 +53,10 @@ const Navbar = () => {
                 </Link>
 
                 {/* Amazon-style Category + Search Bar */}
-                <div className="hidden sm:flex items-stretch w-[400px] mx-4 bg-white rounded-md overflow-hidden border border-yellow-400">
+                <div className="hidden sm:flex items-stretch w-[400px] mx-4 bg-white rounded-md overflow-hidden border border-red-400">
                     <select
                         onChange={handleCategoryChange}
-                        className="bg-gray-200 px-1 text-black outline-none border-r border-yellow-400 cursor-pointer text-sm"
+                        className="bg-gray-200 px-1 text-black outline-none border-r border-red-400 cursor-pointer text-sm"
                     >
                         <option value="all">All</option>
                         <option value="Books">Books</option>
@@ -71,7 +71,7 @@ const Navbar = () => {
                         className="flex-grow px-4 py-2 text-black focus:outline-none"
                     />
 
-                    <button className="bg-yellow-400 px-4 flex items-center justify-center">
+                    <button className="bg-gradient-to-r px-4 from-purple-600 to-red-500 text-white hover:from-purple-500 hover:to-red-400 transition duration-300 ease-in-out">
                         <FiSearch className="text-black text-xl" />
                     </button>
                 </div>

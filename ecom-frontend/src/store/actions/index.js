@@ -1,4 +1,5 @@
 import api from "../../api/api"
+import truncateText from "../../utils/truncateText";
 
 export const fetchProducts = (queryString) => async (dispatch) => {
     try {
@@ -61,7 +62,7 @@ export const addToCart = (data, qty = 1, toast) =>
         // If in stock -> add
         if (isQuantityExist) {
             dispatch({ type: "ADD_CART", payload: {...data, quantity: qty}});
-            toast.success(`${data?.productName} added to the cart`);
+            toast.success(`${truncateText(data?.productName, 35)} Added to the cart`);
             localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
         } else {
             // error
@@ -96,7 +97,7 @@ export const increaseCartQuantity =
 
     };
 
-    export const decreaseCartQuantity = 
+export const decreaseCartQuantity = 
     (data, newQuantity) => (dispatch, getState) => {
         dispatch({
             type: "ADD_CART",
@@ -104,3 +105,9 @@ export const increaseCartQuantity =
         });
         localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
     }
+
+export const removeFromCart =  (data, toast) => (dispatch, getState) => {
+    dispatch({type: "REMOVE_CART", payload: data });
+    toast.success(`${truncateText(data.productName, 15)} Removed from cart`);
+    localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+}

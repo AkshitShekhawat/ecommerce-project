@@ -58,7 +58,7 @@ public class JwtUtils {
 
     public String getJwtFromHeader(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (bearerToken != null & bearerToken.startsWith("Bearer ")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;
@@ -106,8 +106,12 @@ public class JwtUtils {
         );
     }
     //Validate JTW Token
-    public boolean validateJwtToken(String authToken){
-        try{
+    public boolean validateJwtToken(String authToken) {
+        if (authToken == null || authToken.trim().isEmpty()) {
+            logger.error("JWT token is null or empty");
+            return false;
+        }
+        try {
             System.out.println("validate");
             Jwts.parser()
                     .verifyWith((SecretKey) key())

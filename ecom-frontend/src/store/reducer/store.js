@@ -8,7 +8,7 @@ const cartItems = localStorage.getItem("cartItems")
     : [];
 
 const initialState = {
-    carts: {cart: cartItems},
+    carts: { cart: cartItems },
 };
 
 export const store = configureStore({

@@ -1,4 +1,4 @@
-const initialState  = {
+const initialState = {
     cart: [],
     totalPrice: 0,
     cartId: null,
@@ -12,9 +12,9 @@ export const cartReducer = (state = initialState, action) => {
                 (item) => item.productId === productToAdd.productId
             );
 
-            if (existingProduct) {
+            if(existingProduct) {
                 const updatedCart = state.cart.map((item) => {
-                    if(item.productId === productToAdd.productId) {
+                    if (item.productId === productToAdd.productId) {
                         return productToAdd;
                     } else {
                         return item;

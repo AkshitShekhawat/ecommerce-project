@@ -5,8 +5,8 @@ import { cartReducer } from "./cartReducer";
 import { authReducer } from "./authReducer";
 
 const user = localStorage.getItem("auth")
-    ?JSON.parse(localStorage.getItem("auth"))
-    : [];
+    ? JSON.parse(localStorage.getItem("auth"))
+    : null;
 
 //Fetching cartItems form localStorage
 const cartItems = localStorage.getItem("cartItems")

@@ -140,25 +140,23 @@ useEffect(() => {
                         </Link>
                     </li>
 
-                    {(user && user).id ? (
-                        <li className="font-medium transition-all duration-150">
-                            <UserMenu />
-                        </li>
-                    ) : (
+                    {(user && user.id) ? (
                     <li className="font-medium transition-all duration-150">
-                        <Link
-                            className="flex items-center space-x-2 px-4 py-[6px] 
-                            bg-gradient-to-r from-purple-600 to-red-500 
+                        <UserMenu />
+                    </li>
+                ) : (
+                <li className="font-medium transition-all duration-150">
+                   <Link className="flex items-center space-x-2 px-4 py-[6px] 
+                            bg-linear-to-r from-purple-600 to-red-500 
                             text-white font-semibold rounded-md shadow-lg 
                             hover:from-purple-500 hover:to-red-400 transition 
-                            duration-300 ease-in-out transform"
-                            to="/login"
-                        >
-                            <FaSignInAlt />
-                            <span>Login</span>
-                        </Link>
-                    </li>
-                    )}
+                            duration-300 ease-in-out transform "
+                    to="/login">
+                        <FaSignInAlt />
+                        <span>Login</span>
+                   </Link> 
+                </li>
+                )}
                 </ul>
 
                 {/* Mobile View Toggle */}

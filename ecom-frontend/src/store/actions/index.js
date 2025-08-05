@@ -154,3 +154,9 @@ export const registerNewUser
             setLoader(false);
         }
 };
+
+export const logOutUser = (navigate) => (dispatch) => {
+    dispatch({ type:"LOG_OUT" });  // We'll be handling this as to what should happen when this event occurs.
+    localStorage.removeItem("auth");
+    navigate("/login");
+};

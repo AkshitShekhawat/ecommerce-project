@@ -22,17 +22,14 @@ const Navbar = () => {
         setSearchTerm(currentSearchTerm);
     }, [searchParams]);
 
-    useEffect(() => {
-        const delaySearch = setTimeout(() => {
-            if (searchTerm) {
-                params.set("keyword", searchTerm);
-            } else {
-                params.delete("keyword");
-            }
-            navigate(`/products?${params.toString()}`);
-        }, 700);
-        return () => clearTimeout(delaySearch);
-    }, [searchTerm]);
+    const handleSearchSubmit = () => {
+    if (searchTerm.trim()) {
+        params.set("keyword", searchTerm.trim());
+        navigate(`/products?${params.toString()}`);
+    } else {
+        navigate("/products");
+    }
+};
 
     const handleCategoryChange = (e) => {
         const value = e.target.value;
@@ -71,9 +68,13 @@ const Navbar = () => {
                         className="flex-grow px-4 py-2 text-black focus:outline-none"
                     />
 
-                    <button className="bg-gradient-to-r px-4 from-purple-600 to-red-500 text-white hover:from-purple-500 hover:to-red-400 transition duration-300 ease-in-out">
+                    <button
+                        onClick={handleSearchSubmit}
+                        className="bg-gradient-to-r px-4 from-purple-600 to-red-500 text-white hover:from-purple-500 hover:to-red-400 transition duration-300 ease-in-out"
+                        >
                         <FiSearch className="text-black text-xl" />
                     </button>
+
                 </div>
 
                 {/* Nav Links + Mobile Dropdown */}

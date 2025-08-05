@@ -111,3 +111,30 @@ export const removeFromCart =  (data, toast) => (dispatch, getState) => {
     toast.success(`${truncateText(data.productName, 15)} Removed from cart`);
     localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
 }
+
+export const authenticateSignInUser 
+    = (sendData, toast, reset, navigate, setLoader) => async (dispatch) => {
+        try {
+            //updating the loading state
+            //got the data from backend
+            //we dispatch the LOGIN_USER event with the data basically now this data will be used to update the local redux store
+            //and then we have update the local storage of the browser with what ever data we have received from the backend
+            //now we need to reset
+            //toast message
+            //navigate the user to the root page 
+            //error
+            //at the end set loading state false
+            setLoader(true);
+            const { data } = await api.post("/auth/signin", sendData);
+            dispatch({ type: "LOGIN_USER", payload: data });
+            localStorage.setItem("auth", JSON.stringify(data));
+            reset();
+            toast.success("Login Success");
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.response?.data?.message || "Internal Server Error");
+        } finally {
+            setLoader(false);
+        }
+}

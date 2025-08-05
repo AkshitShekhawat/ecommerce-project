@@ -31,6 +31,23 @@ const Navbar = () => {
     }
 };
 
+useEffect(() => {
+    if (!searchTerm.trim()) return;
+
+    const delay = setTimeout(() => {
+        params.set("keyword", searchTerm.trim());
+
+        if (path !== "/products") {
+            navigate(`/products?${params.toString()}`);
+        } else {
+            navigate(`?${params.toString()}`, { replace: true });
+        }
+    }, 500); // debounce delay (optional)
+
+    return () => clearTimeout(delay);
+}, [searchTerm]);
+
+
     const handleCategoryChange = (e) => {
         const value = e.target.value;
         if (value === "all") {

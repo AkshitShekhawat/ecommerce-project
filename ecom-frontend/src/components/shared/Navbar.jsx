@@ -11,6 +11,9 @@ const Navbar = () => {
     const path = useLocation().pathname;
     const [navbarOpen, setNavbarOpen] = useState(false);
     const { cart } = useSelector((state) => state.carts);
+    const { user } = useSelector((state) => state.auth);
+
+            {/* Search Bar */}
 
     const [searchTerm, setSearchTerm] = useState("");
     const [searchParams] = useSearchParams();
@@ -57,6 +60,7 @@ useEffect(() => {
         }
         navigate(`/products?${params.toString()}`);
     };
+            {/* Search Bar */}
 
     return (
         <div className="h-[70px] bg-custom-gradient text-white z-50 flex items-center sticky top-0">
@@ -135,6 +139,11 @@ useEffect(() => {
                         </Link>
                     </li>
 
+                    {(user && user).id ? (
+                        <li className="font-medium transition-all duration-150">
+                            <p>Welcome</p>
+                        </li>
+                    ) : (
                     <li className="font-medium transition-all duration-150">
                         <Link
                             className="flex items-center space-x-2 px-4 py-[6px] 
@@ -148,6 +157,7 @@ useEffect(() => {
                             <span>Login</span>
                         </Link>
                     </li>
+                    )}
                 </ul>
 
                 {/* Mobile View Toggle */}

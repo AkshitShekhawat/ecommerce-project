@@ -5,6 +5,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { IoExitOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import BackDrop from './BackDrop';
 
 const UserMenu = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -74,8 +75,9 @@ const UserMenu = () => {
                     </span>
                     </div>
             </MenuItem>
-
       </Menu>
+
+      {open && <BackDrop />}
     </div>
   );
 }

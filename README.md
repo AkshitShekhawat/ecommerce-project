@@ -64,7 +64,7 @@ Temporarily deployed on AWS for learning purpose, But in future i can deploy on 
 ## 📸 Screenshots  
 [Comming Soon]
 
-### 🏁 Getting Started  
+## 🏁 Getting Started  
 #### Prerequisites  
  - Intellij and VS Code
  - Node.js  

@@ -1,7 +1,7 @@
-🛒 Ecommerce - Production-Grade Full Stack Web Application.  
+# 🛒 Ecommerce - Production-Grade Full Stack Web Application.  
 A fully-featured, production-ready eCommerce web application built using modern technologies, offering secure authentication, role-based access, payment integration, and admin management functionalities.
 
-📦 Core Modules
+## 📦 Core Modules
 
 Authentication: Login, signup, and token-based session management  
 Product Listing: With category filters and search functionality  
@@ -10,9 +10,7 @@ Address Handling: Capture and manage shipping addresse
 Checkout & Orders: Place orders and track history  
 Role based access - Admin, seller, user  
 
-🔧 Tech Stack
-
-## 🚀 Tech Stack
+## Tech Stack
 
 | **Backend**                                         | **Frontend**                                         |
 |-----------------------------------------------------|------------------------------------------------------|
@@ -38,11 +36,11 @@ Role based access - Admin, seller, user
 | AWS Deployment                                      |                                                      |
 | Spring AI Framework                                 |                                                      |
 | Payment Processing                                  |                                                      |
-|------------------------------------------------------------------------------------------------------------|
 
-✅ Features
 
-🔐 Authentication & Authorization  
+## ✅ Features
+
+### 🔐 Authentication & Authorization  
    - Secure login & registration using Spring Security 6 and JWT  
    - Role-based access for customers, sellers and admin  
 
@@ -63,31 +61,31 @@ Role based access - Admin, seller, user
 
 Temporarily deployed on AWS for learning purpose, But in future i can deploy on vercel, render ensuring scalability and high availability
 
-📸 Screenshots  
+## 📸 Screenshots  
 [Comming Soon]
 
-Getting Started
+= Getting Started
 
- -Prerequisites  
- -Node.js  
- -Java 21  
- -MySQL or PostgresSQL  
- -Maven  
+ - Prerequisites  
+ - Node.js  
+ - Java 21  
+ - MySQL or PostgresSQL  
+ - Maven  
  
 Backend Setup
 
-cd sb-ecom-backend  
-configure application.properties  
-mvn clean install  
-mvn spring-boot:run  
+- cd sb-ecom-backend  
+- configure application.properties  
+- mvn clean install  
+- mvn spring-boot:run  
 
 Frontend Setup
 
- cd ecom-frontend  
- npm install  
- npm start  
- Stripe Setup  
- Create a Stripe account  
+- cd ecom-frontend  
+- npm install  
+- npm start  
+- Stripe Setup  
+- Create a Stripe account  
 
 Replace test keys in the frontend/backend with your own
 

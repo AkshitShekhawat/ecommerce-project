@@ -1,53 +1,50 @@
 🛒 Ecommerce - Production-Grade Full Stack Web Application.  
 A fully-featured, production-ready eCommerce web application built using modern technologies, offering secure authentication, role-based access, payment integration, and admin management functionalities.
 
+📦 Core Modules
+
+Authentication: Login, signup, and token-based session management  
+Product Listing: With category filters and search functionality  
+Cart Management: Add/remove products, quantity updates  
+Address Handling: Capture and manage shipping addresse  
+Checkout & Orders: Place orders and track history  
+Role based access - Admin, seller, user  
+
 🔧 Tech Stack
 
-Backend:
+## 🚀 Tech Stack
 
-Spring Framework  
-Spring Boot  
-Java  
-Spring Security  
-JSON Web Tokens (JWT)  
-Role-Based Access Control (RBAC)  
-Custom Authentication  
-JPA (Jakarta Persistence API)  
-Hibernate ORM  
-PostgreSQL  
-MySQL  
-Database Relationships & Entity Management  
-Lombok  
-Maven/Gradle  
-IntelliJ IDEA  
-REST API Development  
-Swagger API Documentation  
-Backend Validations  
-Pagination and Sorting  
-AWS Deployment  
-Spring AI Framework  
-Payment Processing  
-
-FRONTEND:
-
-React.js  
-JSX (JavaScript XML)  
-Redux  
-React Hooks (useState, useEffect, useRef, useContext)  
-Custom Hooks  
-Tailwind CSS  
-Responsive Design  
-React Router  
-React Router Hooks  
-React Hook Forms  
-Stripe Payment Gateway Integration  
-Role-Based Access Control (RBAC)  
+| **Backend**                                         | **Frontend**                                         |
+|-----------------------------------------------------|------------------------------------------------------|
+| Spring Framework                                    | React.js                                             |
+| Spring Boot                                         | JSX (JavaScript XML)                                 |
+| Java                                                | Redux                                                |
+| Spring Security                                     | React Hooks (useState, useEffect, useRef, useContext)|
+| JSON Web Tokens (JWT)                               | Custom Hooks                                         |
+| Role-Based Access Control (RBAC)                    | Tailwind CSS                                         |
+| Custom Authentication                               | Responsive Design                                    |
+| JPA (Jakarta Persistence API)                       | React Router                                         |
+| Hibernate ORM                                       | React Router Hooks                                   |
+| PostgreSQL                                          | React Hook Forms                                     |
+| MySQL                                               | Stripe Payment Gateway Integration                   |
+| Database Relationships & Entity Management          | Role-Based Access Control (RBAC)                     |
+| Lombok                                              |                                                      |
+| Maven / Gradle                                      |                                                      |
+| IntelliJ IDEA                                       |                                                      |
+| REST API Development                                |                                                      |
+| Swagger API Documentation                           |                                                      |
+| Backend Validations                                 |                                                      |
+| Pagination and Sorting                              |                                                      |
+| AWS Deployment                                      |                                                      |
+| Spring AI Framework                                 |                                                      |
+| Payment Processing                                  |                                                      |
+|------------------------------------------------------------------------------------------------------------|
 
 ✅ Features
 
 🔐 Authentication & Authorization  
    - Secure login & registration using Spring Security 6 and JWT  
-   - Role-based access for customers and admin  
+   - Role-based access for customers, sellers and admin  
 
 🔄 Backend APIs  
   - Built RESTful APIs using Spring Boot and Spring Data JPA  
@@ -61,16 +58,6 @@ Role-Based Access Control (RBAC)
 💳 Payments with Stripe  
   - Real-time payment processing using Stripe's API  
   - Integrated securely for both test and live modes
-
-📦 Core Modules
-
-Authentication: Login, signup, and token-based session management  
-Product Listing: With category filters and search functionality  
-Cart Management: Add/remove products, quantity updates  
-Address Handling: Capture and manage shipping addresse  
-Checkout & Orders: Place orders and track history  
-Role based access - Admin, seller, user  
-
 
 ☁️ Deployment
 
@@ -106,12 +93,12 @@ Replace test keys in the frontend/backend with your own
 
 📂 Folder Structure
 
- ecommerce-app/  
+ ecommerce-project/  
  │  
- ├── backend/  
+ ├── sb-ecom-backend/  
  │   └── src/main/java/... (Spring Boot code)  
  │  
- ├── frontend/  
+ ├── ecom-frontend/  
  │   └── src/ (React components)  
  🤝 Contributing  
  

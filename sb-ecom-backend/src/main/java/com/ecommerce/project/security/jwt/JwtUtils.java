@@ -70,6 +70,7 @@ public class JwtUtils {
                 .path("/api")
                 .maxAge(24 * 60 * 60) //This is valid for 1 day
                 .httpOnly(false)
+                .secure(false)
                 .build();
         return cookie;
     }

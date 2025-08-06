@@ -40,7 +40,7 @@ Role based access - Admin, seller, user
 
 ## ✅ Features
 
-### 🔐 Authentication & Authorization  
+#### 🔐 Authentication & Authorization  
    - Secure login & registration using Spring Security 6 and JWT  
    - Role-based access for customers, sellers and admin  
 
@@ -48,39 +48,36 @@ Role based access - Admin, seller, user
   - Built RESTful APIs using Spring Boot and Spring Data JPA  
   - Handles business logic, validation, and data persistence with MySQL  
 
-🖥️ Frontend (React + Redux)  
+#### 🖥️ Frontend (React + Redux)  
   - Fully responsive user interface built with React.js
   - Redux used for global state management (authentication, cart, etc.)  
   - Seamless integration with backend APIs
 
-💳 Payments with Stripe  
+#### 💳 Payments with Stripe  
   - Real-time payment processing using Stripe's API  
   - Integrated securely for both test and live modes
 
-☁️ Deployment
+#### ☁️ Deployment
 
 Temporarily deployed on AWS for learning purpose, But in future i can deploy on vercel, render ensuring scalability and high availability
 
 ## 📸 Screenshots  
 [Comming Soon]
 
-= Getting Started
-
- - Prerequisites  
+### Getting Started  
+#### Prerequisites  
  - Node.js  
  - Java 21  
  - MySQL or PostgresSQL  
  - Maven  
  
-Backend Setup
-
+#### Backend Setup  
 - cd sb-ecom-backend  
 - configure application.properties  
 - mvn clean install  
 - mvn spring-boot:run  
 
-Frontend Setup
-
+#### Frontend Setup
 - cd ecom-frontend  
 - npm install  
 - npm start  
@@ -89,7 +86,7 @@ Frontend Setup
 
 Replace test keys in the frontend/backend with your own
 
-📂 Folder Structure
+## 📂 Folder Structure
 
  ecommerce-project/  
  │  
@@ -102,5 +99,5 @@ Replace test keys in the frontend/backend with your own
  
 Contributions are welcome! Feel free to fork the project and submit a pull request.
 
-📃 License  
+## 📃 License  
 This project is licensed under ------

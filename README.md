@@ -10,7 +10,7 @@ Address Handling: Capture and manage shipping addresse
 Checkout & Orders: Place orders and track history  
 Role based access - Admin, seller, user  
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 | **Backend**                                         | **Frontend**                                         |
 |-----------------------------------------------------|------------------------------------------------------|
@@ -64,8 +64,9 @@ Temporarily deployed on AWS for learning purpose, But in future i can deploy on 
 ## 📸 Screenshots  
 [Comming Soon]
 
-### Getting Started  
+### 🏁 Getting Started  
 #### Prerequisites  
+ - Intellij and VS Code
  - Node.js  
  - Java 21  
  - MySQL or PostgresSQL  

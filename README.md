@@ -1,4 +1,4 @@
-🛒 Ecommerce - Production-Grade Full Stack Web Application
+<img width="464" height="665" alt="image" src="https://github.com/user-attachments/assets/f41fd0e8-8a16-4766-b54a-111d90d336e5" />🛒 Ecommerce - Production-Grade Full Stack Web Application
 A fully-featured, production-ready eCommerce web application built using modern technologies, offering secure authentication, role-based access, payment integration, and admin management functionalities.
 
 🔧 Tech Stack
@@ -8,6 +8,46 @@ Database: MySQL, H2 Database
 Payments: Stripe
 Deployment: AWS - Temporary
 
+Backend: 
+Spring Framework
+Spring Boot
+Java
+Spring Security
+JSON Web Tokens (JWT)
+Role-Based Access Control (RBAC)
+Custom Authentication
+JPA (Jakarta Persistence API)
+Hibernate ORM
+PostgreSQL
+MySQL
+Database Relationships & Entity Management
+Lombok
+Maven/Gradle
+IntelliJ IDEA
+REST API Development
+Swagger API Documentation
+Backend Validations
+Pagination and Sorting
+AWS Deployment
+Spring AI Framework
+Payment Processing
+<img width="464" height="665" alt="image" src="https://github.com/user-attachments/assets/84fd5510-de57-418e-949b-0f10e0455dfd" />
+
+FRONTEND:
+React.js
+JSX (JavaScript XML)
+Redux
+React Hooks (useState, useEffect, useRef, useContext)
+Custom Hooks
+Tailwind CSS
+Responsive Design
+React Router
+React Router Hooks
+React Hook Forms
+Stripe Payment Gateway Integration
+Role-Based Access Control (RBAC)
+<img width="464" height="327" alt="image" src="https://github.com/user-attachments/assets/c0003779-7285-4885-b714-5c0bebc5acd6" />
+
 ✅ Features
 🔐 Authentication & Authorization
 Secure login & registration using Spring Security 6 and JWT
@@ -15,7 +55,6 @@ Role-based access for customers and admin
 
 🔄 Backend APIs
 Built RESTful APIs using Spring Boot and Spring Data JPA
-
 Handles business logic, validation, and data persistence with MySQL
 
 🖥️ Frontend (React + Redux)

@@ -44,7 +44,7 @@ Role based access - Admin, seller, user
    - Secure login & registration using Spring Security 6 and JWT  
    - Role-based access for customers, sellers and admin  
 
-🔄 Backend APIs  
+#### 🔄 Backend APIs  
   - Built RESTful APIs using Spring Boot and Spring Data JPA  
   - Handles business logic, validation, and data persistence with MySQL  
 

@@ -178,6 +178,7 @@ export const addUpdateUserAddress =
     }
 };
 
+//addresses fetched in redux store
 export const getUserAddresses = () => async (dispatch, getState) => {
     try {
         dispatch({ type: "IS_FETCHING" });

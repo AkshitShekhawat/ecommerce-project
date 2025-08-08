@@ -52,7 +52,7 @@ const OrderSummary = ({ totalPrice, cart, address, paymentMethod}) => {
                                     item?.image
                                     }`}
                                     alt='Product'
-                                    className='w-12 h-12 rounded'>
+                                    className='w-24 h-18 rounded'>
                                 </img>
                                 <div className='text-gray-500'>
                                     <p>{item?.productName}</p>

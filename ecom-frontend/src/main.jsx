@@ -8,8 +8,6 @@ import store from './store/reducer/store.js'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <StrictMode>
       <App />
-    </StrictMode>
   </Provider>,
 )

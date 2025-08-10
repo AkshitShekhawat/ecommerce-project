@@ -68,14 +68,14 @@ Temporarily deployed on AWS for learning purpose, But in future i can deploy on 
 [More Comming Soon...]  
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e57e0607-e4dd-46cb-818f-63deb9750afa" alt="gitpro1" width="300"/>/>
-  <img src="https://github.com/user-attachments/assets/36f0a0b0-01df-47f5-a60e-3b2c2bbc640b" alt="gitpro2" width="300"/>/>
-  <img src="https://github.com/user-attachments/assets/e1a57520-d51d-4983-862e-3d7852ff738d" alt="gitpro3" width="300"/>/>
+  <img src="https://github.com/user-attachments/assets/e57e0607-e4dd-46cb-818f-63deb9750afa" alt="gitpro1" width="250"/>/>
+  <img src="https://github.com/user-attachments/assets/36f0a0b0-01df-47f5-a60e-3b2c2bbc640b" alt="gitpro2" width="250"/>/>
+  <img src="https://github.com/user-attachments/assets/e1a57520-d51d-4983-862e-3d7852ff738d" alt="gitpro3" width="250"/>/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2b222b0a-daf4-4764-81b0-e265ea034fe5" alt="gitpro4" width="300"/>/>
-  <img src="https://github.com/user-attachments/assets/32ad2c05-b945-458e-8805-52d54557d2eb" alt="gitpro5" width="300"/>/>
+  <img src="https://github.com/user-attachments/assets/2b222b0a-daf4-4764-81b0-e265ea034fe5" alt="gitpro4" width="250"/>/>
+  <img src="https://github.com/user-attachments/assets/32ad2c05-b945-458e-8805-52d54557d2eb" alt="gitpro5" width="250"/>/>
 </p>
 
 ## 🏁 Getting Started  

@@ -5,8 +5,7 @@ import Skeleton from '../shared/Skeleton';
 const PaymentFrom = ({ clientSecret, totalPrice }) => {
     const stripe = useStripe();
     const elements = useElements();
-    const [loading, setLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+     const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (e) => {
 
@@ -16,10 +15,12 @@ const PaymentFrom = ({ clientSecret, totalPrice }) => {
         layout: "tabs",
     }
 
+    const isLoading = !clientSecret || !stripe || !elements;
+
   return (
     <form onSubmit={handleSubmit} className='max-w-lg mx-auto p-4'>
         <h2 className='text-lg font-semibold mb-4'>Payment Infromation</h2>
-        {loading ? (
+        {isLoading ? (
             <Skeleton />
         ) : (
             <>
@@ -29,8 +30,9 @@ const PaymentFrom = ({ clientSecret, totalPrice }) => {
             )}
 
             <button
-                disabled={!stripe || loading}>
-                    {!loading ? `Pay $${Number(totalPrice).toFixed(2)}`
+                className='text-white w-full px-5 py-[10px] bg-black mb-8 mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse'
+                disabled={!stripe || isLoading}>
+                    {!isLoading ? `Pay $${Number(totalPrice).toFixed(2)}`
                             : "Processing"}
 
             </button>

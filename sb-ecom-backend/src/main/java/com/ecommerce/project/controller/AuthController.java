@@ -84,7 +84,7 @@ public class AuthController {
                 .collect(Collectors.toList());
 
         UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
-                userDetails.getUsername(), roles, jwtCookie.toString()); //This jwtCookie.toString() it will give the jwt token in the string formate instead of null
+                userDetails.getUsername(), roles, userDetails.getEmail(), jwtCookie.toString()); //This jwtCookie.toString() it will give the jwt token in the string formate instead of null
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE,
                 jwtCookie.toString())

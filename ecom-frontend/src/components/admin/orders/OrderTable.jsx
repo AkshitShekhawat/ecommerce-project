@@ -1,5 +1,5 @@
 import { DataGrid } from '@mui/x-data-grid'
-import { adminProductTableColumn } from '../../helper/tableColumn';
+import { adminOrderTableColumn } from '../../helper/tableColumn';
 import { useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ const handlePaginationChange = (paginationModel) => {
       <div>
         <DataGrid
           rows={tableRecords}
-          columns={adminProductTableColumn}
+          columns={adminOrderTableColumn}
           paginationMode='server'
           rowCount={pagination?.totalElements || 0} 
           initialState={{

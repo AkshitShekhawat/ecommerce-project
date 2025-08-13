@@ -1,6 +1,6 @@
 import { FaEdit } from "react-icons/fa";
 
-export const adminProductTableColumn = [
+export const adminOrderTableColumn = [
   {
     sortable: false,
     disableColumnMenu: true,

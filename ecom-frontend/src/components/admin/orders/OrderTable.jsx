@@ -48,6 +48,7 @@ const handleEdit = (order) => {
 
       <div>
         <DataGrid
+          className='w-full'
           rows={tableRecords}
           columns={adminOrderTableColumn(handleEdit)}
           paginationMode='server'

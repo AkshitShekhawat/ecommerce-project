@@ -3,10 +3,12 @@ import { adminOrderTableColumn } from '../../helper/tableColumn';
 import { useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import Modal from '../../shared/Modal';
+import UpdateOrderForm from './UpdateOrderForm';
 
 const OrderTable = ({ adminOrder, pagination }) => {
   const [updateOpenModal, setUpdateOpenModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
+  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(
     pagination?.pageNumber + 1 || 1
@@ -75,6 +77,14 @@ const handleEdit = (order) => {
         open={updateOpenModal}
         setOpen={setUpdateOpenModal}
         title='Update Order Status'>
+          <UpdateOrderForm
+            setOpen={setUpdateOpenModal}
+            open={updateOpenModal}
+            loader={loader}
+            setLoader={setLoader}
+            selectedId={selectedItem.id}
+            selectedItem={selectedItem}
+            />
       </Modal>
     </div>
   )

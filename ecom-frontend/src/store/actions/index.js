@@ -336,8 +336,7 @@ export const analyticsAction = () => async (dispatch, getState) => {
 export const getOrdersForDashboard = (queryString, isAdmin) => async (dispatch) => {
     try {
         dispatch({ type: "IS_FETCHING" });
-        const endpoint = isAdmin ? "/admin/orders" : "/seller/orders";
-        const { data } = await api.get(`${endpoint}?${queryString}`);
+        const { data } = await api.get(`/admin/orders?${queryString}`);
         dispatch({
             type: "GET_ADMIN_ORDERS",
             payload: data.content,
@@ -354,5 +353,20 @@ export const getOrdersForDashboard = (queryString, isAdmin) => async (dispatch) 
             type: "IS_ERROR",
             payload: error?.response?.data?.message || "Failed to fetch orders data",
          });
+    }
+};
+
+export const updateOrderStatusFromDashboard =
+     (orderId, orderStatus, toast, setLoader) => async (dispatch, getState) => {
+    try {
+        setLoader(true);
+        const { data } = await api.put(`admin/orders/${orderId}/status`, { status: orderStatus});
+        toast.success(data.message || "Order updated successfully");
+        await dispatch(getOrdersForDashboard());
+    } catch (error) {
+        console.log(error);
+        toast.error(error?.response?.data?.message || "Internal Server Error");
+    } finally {
+        setLoader(false)
     }
 };

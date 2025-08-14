@@ -374,8 +374,7 @@ export const updateOrderStatusFromDashboard =
 export const dashboardProductsAction = (queryString, isAdmin) => async (dispatch) => {
     try {
         dispatch({ type: "IS_FETCHING" });
-        const endpoint = isAdmin ? "/admin/products" : "/seller/products";
-        const { data } = await api.get(`${endpoint}?${queryString}`);
+        const { data } = await api.get(`admin/products?${queryString}`);
         dispatch({
             type: "FETCH_PRODUCTS",
             payload: data.content,
@@ -392,5 +391,21 @@ export const dashboardProductsAction = (queryString, isAdmin) => async (dispatch
             type: "IS_ERROR",
             payload: error?.response?.data?.message || "Failed to fetch dashboard products",
          });
+    }
+};
+
+export const updateProductFromDashboard = 
+    (sendData, toast, reset, setLoader, setOpen, isAdmin) => async (dispatch) => {
+    try {
+        setLoader(true);
+        await api.put(`/admin/products/${sendData.id}`, sendData);
+        toast.success("Product update successful");
+        reset();
+        setLoader(false);
+        setOpen(false);
+        await dispatch(dashboardProductsAction());
+    } catch (error) {
+        toast.error(error?.response?.data?.description || "Product update failed");
+     
     }
 };

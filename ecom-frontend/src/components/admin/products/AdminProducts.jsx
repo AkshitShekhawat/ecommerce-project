@@ -6,6 +6,8 @@ import { FaBoxOpen } from 'react-icons/fa';
 import { DataGrid } from '@mui/x-data-grid';
 import { adminProductTableColumn } from '../../helper/tableColumn';
 import { useDashboardProductFilter } from '../../../hooks/useProductFilter';
+import Modal from '../../shared/Modal';
+import AddProductForm from './AddProductForm';
 
 const AdminProducts = () => {
 
@@ -17,6 +19,8 @@ const AdminProducts = () => {
   const [currentPage, setCurrentPage] = useState(
     pagination?.pageNumber + 1 || 1
   );
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState('');
 
   useDashboardProductFilter();
 
@@ -34,7 +38,8 @@ const AdminProducts = () => {
 });
 
 const handleEdit = (product) => {
-
+  setSelectedProduct(product);
+  setOpenUpdateModal(true);
 };
 
 const handleDelete = (product) => {
@@ -116,6 +121,16 @@ const handlePaginationChange = (paginationModel) => {
         )}
         </>
       )}
+
+      <Modal
+        open={openUpdateModal}
+        setOpen={setOpenUpdateModal}
+        title="Update Product">
+          <AddProductForm 
+            setOpen={setOpenUpdateModal}
+            product={selectedProduct}
+            update={openUpdateModal}/>
+    </Modal>
     </div>
   )
 }

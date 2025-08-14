@@ -1,99 +1,136 @@
-import { Button, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { Divider } from '@mui/material';
-import { useState } from 'react'
-import Status from './Status';
-import { MdClose, MdDone } from 'react-icons/md';
+import React, { useState, useRef } from "react";
+import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
 
-function ProductViewModal({open, setOpen, product, isAvailable}) {
- 
-  const {id, productName, image, description, quantity, price, discount, specialPrice} = product;
-    const handleClickOpen = () => {
-        setOpen(true);
-    }
+function ProductViewModal({ open, setOpen, product }) {
+  const { productName, image, description, price, specialPrice } = product;
+
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [backgroundPos, setBackgroundPos] = useState("0% 0%");
+  const imgRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (!imgRef.current) return;
+    const { left, top, width, height } = imgRef.current.getBoundingClientRect();
+    const x = ((e.pageX - left - window.scrollX) / width) * 100;
+    const y = ((e.pageY - top - window.scrollY) / height) * 100;
+    setBackgroundPos(`${x}% ${y}%`);
+  };
 
   return (
-    <>
-      <Dialog open={open} as="div" className="relative z-10 " onClose={close}>
-        <DialogBackdrop className="fixed inset-0 bg-gray-500/75 transition-opacity" />
+    <Dialog
+      open={open}
+      as="div"
+      className="relative z-50"
+      onClose={() => setOpen(false)}
+    >
+      <DialogBackdrop className="fixed inset-0 bg-black/40 transition-opacity" />
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4">
-            <DialogPanel
-              transition
-              className="relative transform overflow-hidden rounded-lg bg-white shadow-xl transition-all md:max-w-[620px] md:min-w-[620px] w-full"
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="flex min-h-full items-center justify-center p-6">
+          <DialogPanel
+            transition
+            className="relative w-full max-w-5xl rounded-2xl bg-white text-gray-800 shadow-xl"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-4 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full p-2 shadow-md transition"
             >
-                {image && (
-                    <div className='flex justify-center aspect-[3/2]'>
-                        <img
-                            src={image}
-                            alt={productName}
-                        />
-                   </div>
+              <MdClose size={24} />
+            </button>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+              {/* Left - Image with Zoom on Hover */}
+              <div
+                className="relative flex justify-center items-center bg-gray-100 rounded-lg p-4 overflow-hidden h-[400px]"
+                onMouseEnter={() => setIsZoomed(true)}
+                onMouseLeave={() => setIsZoomed(false)}
+                onMouseMove={handleMouseMove}
+              >
+                {/* Normal Image */}
+                <img
+                  ref={imgRef}
+                  src={image}
+                  alt={productName}
+                  className={`w-full h-full object-contain transition-opacity duration-200 ${
+                    isZoomed ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+
+                {/* Zoomed Image */}
+                {isZoomed && (
+                  <div
+                    className="absolute inset-0 bg-no-repeat bg-contain"
+                    style={{
+                      backgroundImage: `url(${image})`,
+                      backgroundPosition: backgroundPos,
+                      backgroundSize: "200%", // Zoom factor
+                    }}
+                  ></div>
                 )}
+              </div>
 
-                 <div className='px-6 pt-10 pb-2'>
-                <DialogTitle as="h1" className="lg:text-3xl sm:text-2xl text-xl font-semibold leading-6 text-gray-800 mb-4">
-                {productName}
-              </DialogTitle>
+              {/* Right - Product Info */}
+              <div className="flex flex-col justify-center">
+                <button
+                  onClick={() => setOpen(false)}
+                  className="text-sm text-gray-500 hover:underline mb-2"
+                >
+                  ← Back To All Products
+                </button>
 
+                <h1 className="text-3xl font-bold">{productName}</h1>
+                <p className="text-gray-600 mb-4">{description}</p>
 
-              <div className="space-y-2 text-gray-700 pb-4">
-                <div className="flex items-center justify-between gap-2">
+                {/* Price */}
+                <div className="mb-4">
                   {specialPrice ? (
-                    <div className="flex items-center gap-2">
-                      <span className="text-gray-400 line-through">
+                    <>
+                      <span className="line-through text-gray-400 mr-2">
                         ${Number(price).toFixed(2)}
                       </span>
-                      <span className="sm:text-xl font-semibold text-slate-700">
+                      <span className="text-2xl font-semibold text-gray-800">
                         ${Number(specialPrice).toFixed(2)}
                       </span>
-                    </div>
+                    </>
                   ) : (
-                    <span className="text-xl font-bold">
-                      {" "}
+                    <span className="text-2xl font-semibold text-gray-800">
                       ${Number(price).toFixed(2)}
                     </span>
                   )}
-
-                  {isAvailable ? (
-                    <Status
-                      text="In Stock"
-                      icon={MdDone}
-                      bg="bg-teal-200"
-                      color="text-teal-900"
-                    />
-                  ) : (
-                    <Status
-                      text="Out-Of-Stock"
-                      icon={MdClose}
-                      bg="bg-rose-200"
-                      color="text-rose-700"
-                    />
-                  )}
                 </div>
 
-                <Divider />
+                {/* Quantity */}
+                <div className="flex items-center gap-2 mb-6">
+                  <label htmlFor="qty" className="text-sm font-medium">
+                    Qty:
+                  </label>
+                  <input
+                    id="qty"
+                    type="number"
+                    defaultValue={1}
+                    min={1}
+                    className="w-16 p-1 border border-gray-300 rounded text-gray-800 text-center"
+                  />
+                </div>
 
-                <p>{description}</p>
+                {/* Buttons */}
+                <div className="space-y-3">
+                  <button className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-semibold shadow-sm">
+                    Add to Cart 🛒
+                  </button>
+                  <button className="w-full py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md font-semibold shadow-sm">
+                    View Cart 🛍️
+                  </button>
+                </div>
               </div>
-                </div>
-
-            <div className="px-6 py-4 flex justify-end gap-4">
-              <button
-                onClick={() => setOpen(false)}
-                type="button"
-                className="px-4 py-2 text-sm font-semibold text-slate-700 border border-slate-700 hover:text-slate-800 hover:border-slate-800 rounded-md "
-              >
-                Close
-              </button>
             </div>
-
-            </DialogPanel>
-          </div>
+          </DialogPanel>
         </div>
-      </Dialog>
-    </>
-  )
+      </div>
+    </Dialog>
+  );
 }
 
 export default ProductViewModal;

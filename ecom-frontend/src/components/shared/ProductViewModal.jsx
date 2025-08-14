@@ -1,9 +1,10 @@
 import React, { useState, useRef } from "react";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { MdClose } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
-function ProductViewModal({ open, setOpen, product }) {
-  const { productName, image, description, price, specialPrice } = product;
+function ProductViewModal({ open, setOpen, product, isAvailable, addToCartHandler }) {
+  const { id, productName, image, description, price, specialPrice } = product;
 
   const [isZoomed, setIsZoomed] = useState(false);
   const [backgroundPos, setBackgroundPos] = useState("0% 0%");
@@ -16,6 +17,9 @@ function ProductViewModal({ open, setOpen, product }) {
     const y = ((e.pageY - top - window.scrollY) / height) * 100;
     setBackgroundPos(`${x}% ${y}%`);
   };
+
+  const navigate = useNavigate();
+
 
   return (
     <Dialog
@@ -87,6 +91,10 @@ function ProductViewModal({ open, setOpen, product }) {
                 <div className="mb-4">
                   {specialPrice ? (
                     <>
+                      {/* Discount Percentage on Top */}
+                        <span className="mr-2 bg-red-100 text-red-700 text-xs font-semibold px-2 py-0.5 rounded-full mb-1">
+                        {Math.round(((price - specialPrice) / price) * 100)}% OFF
+                        </span>
                       <span className="line-through text-gray-400 mr-2">
                         ${Number(price).toFixed(2)}
                       </span>
@@ -117,11 +125,34 @@ function ProductViewModal({ open, setOpen, product }) {
 
                 {/* Buttons */}
                 <div className="space-y-3">
-                  <button className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-semibold shadow-sm">
-                    Add to Cart 🛒
+                  <button
+                      disabled={!isAvailable}
+                      onClick={() =>
+                        addToCartHandler({
+                          productId: id,
+                          productName,
+                          image,
+                          description,
+                          quantity: product.quantity,
+                          price,
+                          specialPrice,
+                        })
+                      }
+                      className={`w-full py-2 rounded-md font-semibold shadow-sm transition-all duration-300 ease-out transform
+                        ${isAvailable
+                          ? "bg-indigo-600 hover:bg-indigo-700 text-white"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        }`}>
+                      {isAvailable ? "Add to Cart" : "Stock Out"}
                   </button>
-                  <button className="w-full py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md font-semibold shadow-sm">
-                    View Cart 🛍️
+                  <button
+                      onClick={() => {
+                        setOpen(false); // Close modal
+                        navigate("/cart"); // Navigate to cart page
+                      }}
+                      className="w-full py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md font-semibold shadow-sm"
+                    >
+                      View Cart
                   </button>
                 </div>
               </div>

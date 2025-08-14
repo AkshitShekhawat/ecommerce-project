@@ -9,9 +9,10 @@ import { useDashboardProductFilter } from '../../../hooks/useProductFilter';
 import Modal from '../../shared/Modal';
 import AddProductForm from './AddProductForm';
 import DeleteModal from '../../shared/DeleteModal';
-import { deleteProduct } from '../../../store/actions';
+import { addToCart, deleteProduct } from '../../../store/actions';
 import toast from 'react-hot-toast';
 import ImageUploadForm from './ImageUploadForm';
+import ProductViewModal from '../../shared/ProductViewModal';
 
 const AdminProducts = () => {
 
@@ -30,6 +31,7 @@ const AdminProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openProductViewModal, setOpenProductViewModal] = useState(false);
   const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
 
   const [loader, setLoader] = useState(false);
@@ -67,7 +69,8 @@ const handleImageUpload = (product) => {
 };
 
 const handleProductView = (product) => {
-
+  setSelectedProduct(product);
+  setOpenProductViewModal(true);
 };
 
 const handlePaginationChange = (paginationModel) => {
@@ -80,6 +83,10 @@ const onDeleteHandler = () => {
 };
 
   const emptyProduct = !products || products ?.length ===0;
+
+  const addToCartHandler = (cartItems) => {
+        dispatch(addToCart(cartItems, 1, toast));
+    };
 
   return (
     <div>
@@ -170,6 +177,14 @@ const onDeleteHandler = () => {
       loader={loader}
       title="Delete Product"
       onDeleteHandler={onDeleteHandler} />
+
+      <ProductViewModal 
+        open={openProductViewModal}
+        setOpen={setOpenProductViewModal}
+        product={selectedProduct}
+        isAvailable={selectedProduct?.quantity > 0}
+        addToCartHandler={(cartItem) => addToCartHandler(cartItem)}
+      />
     </div>
   )
 }

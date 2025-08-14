@@ -8,6 +8,7 @@ import { adminProductTableColumn } from '../../helper/tableColumn';
 import { useDashboardProductFilter } from '../../../hooks/useProductFilter';
 import Modal from '../../shared/Modal';
 import AddProductForm from './AddProductForm';
+import DeleteModal from '../../shared/DeleteModal';
 
 const AdminProducts = () => {
 
@@ -22,6 +23,7 @@ const AdminProducts = () => {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState('');
   const [openAddModal, setOpenAddModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   useDashboardProductFilter();
 
@@ -44,7 +46,8 @@ const handleEdit = (product) => {
 };
 
 const handleDelete = (product) => {
-
+  setSelectedProduct(product);
+  setOpenDeleteModal(true);
 };
 
 const handleImageUpload = (product) => {
@@ -133,6 +136,12 @@ const handlePaginationChange = (paginationModel) => {
             product={selectedProduct}
             update={openUpdateModal}/>
     </Modal>
+
+    <DeleteModal
+      open={openDeleteModal}
+      setOpen={setOpenDeleteModal}
+      title="Delete Product"
+      onDeleteHandler={() => {}} />
     </div>
   )
 }

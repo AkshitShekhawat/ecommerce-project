@@ -9,7 +9,7 @@ const SelectTextField = ({
 }) => {
     return (
         <Listbox value={select} onChange={setSelect}>
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-1 w-full">
             <label
                 htmlFor="id"
                 className="font-semibold text-sm text-slate-800">

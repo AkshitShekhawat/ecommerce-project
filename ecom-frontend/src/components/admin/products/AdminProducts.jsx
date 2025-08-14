@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { MdAddShoppingCart } from 'react-icons/md';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../shared/Loader';
 import { FaBoxOpen } from 'react-icons/fa';
 import { DataGrid } from '@mui/x-data-grid';
@@ -9,6 +9,8 @@ import { useDashboardProductFilter } from '../../../hooks/useProductFilter';
 import Modal from '../../shared/Modal';
 import AddProductForm from './AddProductForm';
 import DeleteModal from '../../shared/DeleteModal';
+import { deleteProduct } from '../../../store/actions';
+import toast from 'react-hot-toast';
 
 const AdminProducts = () => {
 
@@ -20,10 +22,15 @@ const AdminProducts = () => {
   const [currentPage, setCurrentPage] = useState(
     pagination?.pageNumber + 1 || 1
   );
+
+  const dispatch = useDispatch(); 
+
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState('');
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const [loader, setLoader] = useState(false);
 
   useDashboardProductFilter();
 
@@ -48,6 +55,8 @@ const handleEdit = (product) => {
 const handleDelete = (product) => {
   setSelectedProduct(product);
   setOpenDeleteModal(true);
+  // console.log(`handleDelete ${product.id}`);
+  
 };
 
 const handleImageUpload = (product) => {
@@ -60,6 +69,11 @@ const handleProductView = (product) => {
 
 const handlePaginationChange = (paginationModel) => {
 
+};
+
+const onDeleteHandler = () => {
+  // console.log(`onDeleteHandler ${selectedProduct}`);
+  dispatch(deleteProduct(setLoader, selectedProduct?.id, toast, setOpenDeleteModal));
 };
 
   const emptyProduct = !products || products ?.length ===0;
@@ -140,8 +154,9 @@ const handlePaginationChange = (paginationModel) => {
     <DeleteModal
       open={openDeleteModal}
       setOpen={setOpenDeleteModal}
+      loader={loader}
       title="Delete Product"
-      onDeleteHandler={() => {}} />
+      onDeleteHandler={onDeleteHandler} />
     </div>
   )
 }

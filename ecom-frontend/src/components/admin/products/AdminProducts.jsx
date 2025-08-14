@@ -11,6 +11,7 @@ import AddProductForm from './AddProductForm';
 import DeleteModal from '../../shared/DeleteModal';
 import { deleteProduct } from '../../../store/actions';
 import toast from 'react-hot-toast';
+import ImageUploadForm from './ImageUploadForm';
 
 const AdminProducts = () => {
 
@@ -29,6 +30,7 @@ const AdminProducts = () => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openImageUploadModal, setOpenImageUploadModal] = useState(false);
 
   const [loader, setLoader] = useState(false);
 
@@ -60,7 +62,8 @@ const handleDelete = (product) => {
 };
 
 const handleImageUpload = (product) => {
-
+  setSelectedProduct(product);
+  setOpenImageUploadModal(true);
 };
 
 const handleProductView = (product) => {
@@ -149,6 +152,16 @@ const onDeleteHandler = () => {
             setOpen={openUpdateModal ? setOpenUpdateModal : setOpenAddModal}
             product={selectedProduct}
             update={openUpdateModal}/>
+    </Modal>
+
+    <Modal
+      open={openImageUploadModal}
+      setOpen={setOpenImageUploadModal}
+      title="Add Product Image">
+        <ImageUploadForm 
+          setOpen={setOpenImageUploadModal}
+          product={selectedProduct}
+          />
     </Modal>
 
     <DeleteModal

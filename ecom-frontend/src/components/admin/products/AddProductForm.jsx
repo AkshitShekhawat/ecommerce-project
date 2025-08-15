@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import Spinners from '../../shared/Spinners';
-import { fetchCategories, updateProductFromDashboard } from '../../../store/actions';
+import { addNewProductFromDashboard, fetchCategories, updateProductFromDashboard } from '../../../store/actions';
 import SelectTextField from '../../shared/SelectTextField';
 import Skeleton from '../../shared/Skeleton';
 import ErrorPage from '../../shared/ErrorPage';
@@ -30,6 +30,13 @@ const AddProductForm = ({ setOpen, product, update=false}) => {
     const saveProductHandler = (data) => {
         if(!update) {
             // create new product logic
+            const sendData = {
+                ...data,
+                categoryId: selectedCategory.categoryId,
+            };
+            dispatch(addNewProductFromDashboard(
+                sendData, toast, reset, setLoader, setOpen
+            ));
         } else {
             const sendData = {
                 ...data,

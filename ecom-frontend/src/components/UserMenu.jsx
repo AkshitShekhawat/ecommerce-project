@@ -1,7 +1,7 @@
 import { Avatar, Button, Menu, MenuItem } from '@mui/material';
 import React from 'react'
 import { BiUser } from 'react-icons/bi';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaHome, FaShoppingCart, FaUserShield } from 'react-icons/fa';
 import { IoExitOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,6 +14,9 @@ const UserMenu = () => {
     const { user }  =useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const isAdmin = user && user?.roles.includes("ROLE_ADMIN");
+    const isSeller = user && user?.roles.includes("ROLE_SELLER");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,12 +32,13 @@ const UserMenu = () => {
   return (
     <div className='relative z-30'>
       <div
-        className='sm:border sm:border-slate-400 flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700'
+        className='flex flex-row items-center gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700'
         onClick={handleClick}
       >
         <Avatar alt='Menu' src='' />
       </div>
       <Menu
+      className='mt-6'
         sx={{ width:"400px" }} //sx - for custom css
         id="basic-menu"
         anchorEl={anchorEl}
@@ -43,7 +47,7 @@ const UserMenu = () => {
         slotProps={{
           list: {
             'aria-labelledby': 'basic-button',
-            sx: {width: 160},
+            sx: {width: 170},
           },
         }}
       >
@@ -57,7 +61,17 @@ const UserMenu = () => {
         </MenuItem>
         </Link>
 
-        <Link to="/profile/orders">
+        <Link to="/">
+            <MenuItem className="flex gap-2" 
+                onClick={handleClose}>
+                    <FaHome className='text-xl'/>
+                    <span className='font-semibold'>
+                        Home
+                    </span>
+            </MenuItem>
+          </Link>
+
+        <Link to="/admin/orders">
             <MenuItem className="flex gap-2" 
                 onClick={handleClose}>
                     <FaShoppingCart className='text-xl'/>
@@ -66,6 +80,17 @@ const UserMenu = () => {
                     </span>
             </MenuItem>
           </Link>
+         
+          { (isAdmin || isSeller) && (
+          <Link to={isAdmin ? "/admin" : "/admin/orders"}>
+            <MenuItem className="flex gap-2" 
+                onClick={handleClose}>
+                    <FaUserShield className='text-xl'/>
+                    <span className='font-semibold'>
+                        {isAdmin ? "Admin Panel" : "Seller Panel"}
+                    </span>
+            </MenuItem>
+          </Link> )}
 
         <MenuItem className="flex gap-2" 
                 onClick={logOutHandler}>

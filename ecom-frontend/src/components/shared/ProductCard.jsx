@@ -113,7 +113,7 @@ const ProductCard = ({
                         price,
                         specialPrice,
                     })}  
-                    className={`flex justify-center items-center w-36 py-2.5 px-4 
+                    className={`flex justify-center items-center w-36 py-2 px-3 
                     rounded-full font-semibold text-white tracking-wide
                     transition-all duration-300 ease-out transform
                     ${isAvailable

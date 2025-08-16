@@ -7,49 +7,86 @@ import Loader from "../shared/Loader";
 import { FaExclamationTriangle } from "react-icons/fa";
 
 const Home = () => {
-    const dispatch = useDispatch();
-    const {products} = useSelector((state) => state.products);
-    const { isLoading, errorMessage } = useSelector(
-        (state) => state.errors
-    );
-    useEffect(() => {
-        dispatch(fetchProducts());
-    }, [dispatch]);
-    return (
-        <div className="lg:px-14 sm:px-8 px-4">
-            <div className="py-6">
-                <HeroBanner />
-            </div>
-            
-            <div className="py-5">
-                <div className="flex flex-col justify-center items-center space-y-2">
-                    <h1 className="text-slate-800 text-4xl font-bold"> Products</h1>
-                        <span className="text-slate-700">
-                            Discover our handpicked selection of top-rated items just for you!
-                        </span>
-                    
-                </div>
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.products);
+  const { isLoading, errorMessage } = useSelector((state) => state.errors);
 
-                {isLoading ? (
-                    <Loader />
-                ) : errorMessage ? (
-                    <div className="flex justify-center items-center h-[200px]">
-                        <FaExclamationTriangle className="text-slate-800 text-3xl mr-2"/>
-                        <span className="text-slate-800 text-lg font-medium">
-                            {errorMessage}
-                        </span>
-                    </div>
-                ) : (
-            <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6">
-                       {products && 
-                       products?.slice(0,4)
-                                .map((item, i) => <ProductCard key={i} {...item} />
-                        )}
-                    </div>
-                    )}
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  return (
+    <div className="lg:px-1.5 sm:px-8 px-4">
+      {/* ✅ Full-width Hero Banner */}
+      <div className="w-full">
+        <HeroBanner />
+      </div>
+
+      {/* ✅ Products Section */}
+      <div className="lg:px-14 sm:px-8 px-4 py-3">
+        <h1 className="text-slate-800 text-3xl  text-center font-bold mb-2">
+          Top Deals for You
+        </h1>
+        <h2 className="text-slate-600 text-center ">
+          Discover our handpicked selection of top-rated items just for you!
+        </h2>
+
+        {isLoading ? (
+          <div className="flex justify-center items-center">
+            <Loader />
+          </div>
+        ) : errorMessage ? (
+          <div className="flex justify-center items-center h-[200px]">
+            <FaExclamationTriangle className="text-slate-800 text-3xl mr-2" />
+            <span className="text-slate-800 text-lg font-medium">
+              {errorMessage}
+            </span>
+          </div>
+        ) : (
+          <>
+            {/* ✅ Row 1 */}
+            <div className="mt-1.5">
+              <h2 className="text-xl font-semibold text-slate-800 mb-4">
+                Products Section 1
+              </h2>
+              <div className="grid grid-flow-col auto-cols-[270px] gap-6 overflow-x-auto pb-4 scrollbar-hide">
+                {products &&
+                  products.slice(0, 6).map((item, i) => (
+                    <ProductCard key={i} {...item} />
+                  ))}
+              </div>
             </div>
-        </div>
-    )
-}
+
+            {/* ✅ Row 2 */}
+            <div className="mt-5">
+              <h2 className="text-xl font-semibold text-slate-800 mb-4">
+                Products Section 2
+              </h2>
+              <div className="grid grid-flow-col auto-cols-[270px] gap-6 overflow-x-auto pb-4 scrollbar-hide">
+                {products &&
+                  products.slice(6, 10).map((item, i) => (
+                    <ProductCard key={i} {...item} />
+                  ))}
+              </div>
+            </div>
+
+            {/* ✅ Row 3 */}
+            <div className="mt-14">
+              <h2 className="text-xl font-semibold text-slate-800 mb-4">
+                {/* Home & Kitchen */}
+              </h2>
+              <div className="grid grid-flow-col auto-cols-[200px] gap-6 overflow-x-auto pb-4 scrollbar-hide">
+                {products &&
+                  products.slice(16, 24).map((item, i) => (
+                    <ProductCard key={i} {...item} />
+                  ))}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default Home;

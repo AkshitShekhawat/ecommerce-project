@@ -415,10 +415,11 @@ export const updateProductFromDashboard =
 };
 
 export const addNewProductFromDashboard = 
-    (sendData, toast, reset, setLoader, setOpen) => async(dispatch, getState) => {
+    (sendData, toast, reset, setLoader, setOpen, isAdmin) => async(dispatch, getState) => {
         try {
             setLoader(true);
-            await api.post(`/admin/categories/${sendData.categoryId}/product`,
+            const endpoint = isAdmin ? "/admin/categories/" : "/seller/categories/";
+            await api.post(`${endpoint}${sendData.categoryId}/product`,
                 sendData
             );
             toast.success("Product created successfully");
@@ -434,10 +435,11 @@ export const addNewProductFromDashboard =
     }
 
 export const deleteProduct = 
-    (setLoader, productId, toast, setOpenDeleteModal) => async (dispatch, getState) => {
+    (setLoader, productId, toast, setOpenDeleteModal, isAdmin) => async (dispatch, getState) => {
     try {
         setLoader(true)
-        await api.delete(`/admin/products/${productId}`);
+        const endpoint = isAdmin ? "/admin/products/" : "/seller/products/";
+        await api.delete(`${endpoint}${productId}`);
         toast.success("Product deleted successfully");
         setLoader(false);
         setOpenDeleteModal(false);

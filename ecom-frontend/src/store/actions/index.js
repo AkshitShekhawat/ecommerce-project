@@ -376,7 +376,8 @@ export const updateOrderStatusFromDashboard =
 export const dashboardProductsAction = (queryString, isAdmin) => async (dispatch) => {
     try {
         dispatch({ type: "IS_FETCHING" });
-        const { data } = await api.get(`admin/products?${queryString}`);
+        const endpoint = isAdmin ? "/admin/products" : "/seller/products";
+        const { data } = await api.get(`${endpoint}?${queryString}`);
         dispatch({
             type: "FETCH_PRODUCTS",
             payload: data.content,

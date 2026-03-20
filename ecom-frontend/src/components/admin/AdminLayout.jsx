@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Sidebar from '../shared/SideBar'
+import Sidebar from '../shared/Sidebar'
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react';
 import { RxCross1 } from 'react-icons/rx';
 import { FaBars } from 'react-icons/fa';

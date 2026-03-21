@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import SetQuantity from "./SetQuantity";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ const ItemContent = ({
     productName,
     image,
     description,
-    quantity,
+    quantity, // This comes directly from your Spring Boot Backend!
     price,
     discount,
     specialPrice,
@@ -20,6 +20,11 @@ const ItemContent = ({
   }) => {
     const [currentQuantity, setCurrentQuantity] = useState(quantity);
     const dispatch = useDispatch();
+
+    // This ensures that if the backend updates the quantity, the UI updates immediately
+    useEffect(() => {
+        setCurrentQuantity(quantity);
+    }, [quantity]);
 
     const handleQtyIncrease = (cartItems) => {
         dispatch(increaseCartQuantity(
@@ -34,7 +39,8 @@ const ItemContent = ({
         if (currentQuantity > 1) {
             const newQuantity = currentQuantity - 1;
             setCurrentQuantity(newQuantity);
-            dispatch(decreaseCartQuantity(cartItems, newQuantity));
+            
+            dispatch(decreaseCartQuantity(cartItems)); 
         }
     };
 
@@ -43,8 +49,8 @@ const ItemContent = ({
     };
 
     return (
-        <div className="grid md:grid-cols-5 grid-cols-4 md:text-md text-sm gap-4   items-center  border border-slate-200  rounded-md  lg:px-4  py-4 p-2">
-            <div className="md:col-span-2 justify-self-start flex  flex-col gap-2 ">
+        <div className="grid md:grid-cols-5 grid-cols-4 md:text-md text-sm gap-4 items-center border border-slate-200 rounded-md lg:px-4 py-4 p-2">
+            <div className="md:col-span-2 justify-self-start flex flex-col gap-2 ">
                 <div className="flex md:flex-row flex-col lg:gap-4 sm:gap-3 gap-0 items-start ">
                     <h3 className="lg:text-[17px] text-sm font-semibold text-slate-600">
                         {truncateText(productName)}

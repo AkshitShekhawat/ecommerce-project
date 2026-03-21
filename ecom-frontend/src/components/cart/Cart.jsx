@@ -7,13 +7,9 @@ import { formatPrice } from "../../utils/formatPrice";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.carts);
-  const newCart = { ...cart };
-
-  newCart.totalPrice = cart?.reduce(
-    (acc, cur) => acc + Number(cur?.specialPrice) * Number(cur?.quantity),
-    0
-  );
+  
+  // NEW: Pull totalPrice directly from Redux since the backend calculates it!
+  const { cart, totalPrice } = useSelector((state) => state.carts);
 
   if (!cart || cart.length === 0) return <CartEmpty />;
 
@@ -62,7 +58,8 @@ const Cart = () => {
 
           <div className="flex justify-between mb-3 text-gray-700 text-lg font-medium">
             <span>Subtotal</span>
-            <span>{formatPrice(newCart?.totalPrice)}</span>
+            {/* NEW: Use the backend's exact total price */}
+            <span>{formatPrice(totalPrice)}</span>
           </div>
 
           <p className="text-sm text-gray-500 mb-6">
@@ -70,9 +67,7 @@ const Cart = () => {
           </p>
 
           <Link to="/checkout">
-            <button className="font-semibold w-[300px] py-2 px-4 rounded-lg bg-custom-blue text-white flex items-center justify-center gap-2 hover:text-gray-300 transition duration-500" 
-                    // className="w-full p-3 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold text-lg flex items-center justify-center gap-2 shadow-md hover:scale-[1.02] transition duration-300"
-            >
+            <button className="font-semibold w-[300px] py-2 px-4 rounded-lg bg-custom-blue text-white flex items-center justify-center gap-2 hover:text-gray-300 transition duration-500" >
               <MdShoppingCart size={22} />
               Proceed to Checkout
             </button>
@@ -92,4 +87,3 @@ const Cart = () => {
 };
 
 export default Cart;
-    

@@ -49,7 +49,7 @@ export const fetchCategories = () => async (dispatch) => {
 };
 
 export const addToCart = (data, qty = 1, toast) => 
-    (dispatch, getState) => {
+    async (dispatch, getState) => {
         // Find the product
         const { products } = getState().products;
         const getProduct = products.find(
@@ -57,13 +57,28 @@ export const addToCart = (data, qty = 1, toast) =>
         );
 
         // Check for stocks
-        const isQuantityExist = getProduct.quantity >= qty;
+        const isQuantityExist = getProduct && getProduct.quantity >= qty;
 
         // If in stock -> add
         if (isQuantityExist) {
-            dispatch({ type: "ADD_CART", payload: {...data, quantity: qty}});
-            toast.success(`${truncateText(data?.productName, 35)} Added to the cart`);
-            localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+            try {
+                dispatch({ type: "IS_FETCHING" });
+
+                // 1. Tell the backend to add the item to the user's database cart
+                await api.post(`/carts/products/${data.productId}/quantity/${qty}`);
+
+                // 2. Fetch the freshly updated cart directly from the backend
+                await dispatch(getUserCart());
+
+                // 3. Show success message
+                toast.success(`${truncateText(data?.productName, 35)} Added to the cart`);
+                
+                dispatch({ type: "IS_SUCCESS" });
+            } catch (error) {
+                console.log(error);
+                toast.error(error?.response?.data?.message || "Failed to add item to cart");
+                dispatch({ type: "IS_ERROR", payload: error?.response?.data?.message });
+            }
         } else {
             // error
             toast.error("Out of stock");
@@ -72,44 +87,82 @@ export const addToCart = (data, qty = 1, toast) =>
 
 export const increaseCartQuantity = 
     (data, toast, currentQuantity, setCurrentQuantity) =>
-    (dispatch, getState) => {
-        // Find the product
+    async (dispatch, getState) => {
+        // Find the product to check stock limits
         const { products } = getState().products;
-        
         const getProduct = products.find(
             (item) => item.productId === data.productId
         );
 
-        const isQuantityExist = getProduct.quantity >= currentQuantity + 1;
+        const isQuantityExist = getProduct && getProduct.quantity >= currentQuantity + 1;
 
         if (isQuantityExist) {
-            const newQuantity = currentQuantity + 1;
-            setCurrentQuantity(newQuantity);
+            try {
+                dispatch({ type: "IS_FETCHING" });
+                
+                // 1. Tell backend to add 1 to the quantity
+                await api.put(`/cart/products/${data.productId}/quantity/add`);
+                
+                // 2. Update the local component state for immediate UI feedback
+                const newQuantity = currentQuantity + 1;
+                setCurrentQuantity(newQuantity);
 
-            dispatch({
-                type: "ADD_CART",
-                payload: {...data, quantity: newQuantity + 1 },
-            });
-            localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+                // 3. Fetch the freshly updated cart from the backend
+                await dispatch(getUserCart());
+                dispatch({ type: "IS_SUCCESS" });
+                
+            } catch (error) {
+                console.log(error);
+                toast.error(error?.response?.data?.message || "Failed to increase quantity");
+                dispatch({ type: "IS_ERROR" });
+            }
         } else {
             toast.error("Quantity Reached to Limit");
         }
-
     };
 
 export const decreaseCartQuantity = 
-    (data, newQuantity) => (dispatch, getState) => {
-        dispatch({
-            type: "ADD_CART",
-            payload: {...data, quantity: newQuantity},
-        });
-        localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+    (data) => async (dispatch) => {
+        try {
+            dispatch({ type: "IS_FETCHING" });
+            
+            // 1. Passing "delete" triggers the -1 logic in your Spring Boot backend
+            await api.put(`/cart/products/${data.productId}/quantity/delete`);
+            
+            // 2. Fetch the freshly updated cart from the backend
+            await dispatch(getUserCart());
+            dispatch({ type: "IS_SUCCESS" });
+            
+        } catch (error) {
+            console.log(error);
+            dispatch({ 
+                type: "IS_ERROR", 
+                payload: error?.response?.data?.message || "Failed to decrease quantity" 
+            });
+        }
     }
 
-export const removeFromCart =  (data, toast) => (dispatch, getState) => {
-    dispatch({type: "REMOVE_CART", payload: data });
-    toast.success(`${truncateText(data.productName, 15)} Removed from cart`);
-    localStorage.setItem("cartItems", JSON.stringify(getState().carts.cart));
+export const removeFromCart = (data, toast) => async (dispatch, getState) => {
+    try {
+        dispatch({ type: "IS_FETCHING" });
+        
+        // Grab the cartId from the Redux state
+        const { cartId } = getState().carts;
+        
+        // 1. Tell the backend to completely remove the item
+        await api.delete(`/carts/${cartId}/product/${data.productId}`);
+        
+        // 2. Refresh the cart to reflect the deletion
+        await dispatch(getUserCart());
+        
+        toast.success(`${truncateText(data.productName, 15)} Removed from cart`);
+        dispatch({ type: "IS_SUCCESS" });
+        
+    } catch (error) {
+        console.log(error);
+        toast.error(error?.response?.data?.message || "Failed to remove item");
+        dispatch({ type: "IS_ERROR" });
+    }
 }
 
 export const authenticateSignInUser 
@@ -128,6 +181,7 @@ export const authenticateSignInUser
             const { data } = await api.post("/auth/signin", sendData);
             dispatch({ type: "LOGIN_USER", payload: data });
             localStorage.setItem("auth", JSON.stringify(data));
+            await dispatch(getUserCart());
             reset();
             toast.success("Login Success");
             navigate("/");
@@ -157,7 +211,12 @@ export const registerNewUser
 
 export const logOutUser = (navigate) => (dispatch) => {
     dispatch({ type:"LOG_OUT" });  // We'll be handling this as to what should happen when this event occurs.
+    dispatch({ type: "CLEAR_CART" }); // Clear the cart in the redux store when user logs out
+
     localStorage.removeItem("auth");
+    localStorage.removeItem("cartItems");
+    localStorage.removeItem("CHECKOUT_ADDRESS");
+
     navigate("/login");
 };
 

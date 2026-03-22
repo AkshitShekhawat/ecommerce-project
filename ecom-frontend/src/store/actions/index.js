@@ -266,7 +266,7 @@ export const addUpdateUserAddress =
 export const getUserAddresses = () => async (dispatch, getState) => {
   try {
     dispatch({ type: "IS_FETCHING" });
-    const { data } = await api.get(`/addresses`);
+    const { data } = await api.get(`/users/addresses`);
     dispatch({ type: "USER_ADDRESS", payload: data });
     dispatch({ type: "IS_SUCCESS" });
   } catch (error) {

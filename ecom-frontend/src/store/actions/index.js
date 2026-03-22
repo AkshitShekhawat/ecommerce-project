@@ -50,7 +50,16 @@ export const fetchCategories = () => async (dispatch) => {
 export const addToCart =
   (data, qty = 1, toast) =>
   async (dispatch, getState) => {
-    // Find the product
+    //FIRST, check if the user is logged in
+    const { user } = getState().auth;
+
+    // If there is no user, stop here and show a message
+    if (!user) {
+      toast.error("Please log in to add items to your cart");
+      return;
+    }
+
+    //Only proceed if the user is logged in
     const { products } = getState().products;
     const getProduct = products.find(
       (item) => item.productId === data.productId,
@@ -64,13 +73,12 @@ export const addToCart =
       try {
         dispatch({ type: "IS_FETCHING" });
 
-        // 1. Tell the backend to add the item to the user's database cart
+        // Tell the backend to add the item to the user's database cart
         await api.post(`/carts/products/${data.productId}/quantity/${qty}`);
 
-        // 2. Fetch the freshly updated cart directly from the backend
+        // Fetch the freshly updated cart directly from the backend
         await dispatch(getUserCart());
 
-        // 3. Show success message
         toast.success(
           `${truncateText(data?.productName, 35)} Added to the cart`,
         );
@@ -84,7 +92,6 @@ export const addToCart =
         dispatch({ type: "IS_ERROR", payload: error?.response?.data?.message });
       }
     } else {
-      // error
       toast.error("Out of stock");
     }
   };
